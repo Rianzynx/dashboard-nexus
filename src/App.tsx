@@ -1,23 +1,25 @@
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
 import './App.css'
-import './pages/Login.tsx'
-import './pages/Home.tsx'
-import './pages/Users.tsx'
-import './pages/Deposit.tsx'
-import './pages/Withdraw.tsx'
-import './pages/Conversion.tsx'
+import Login from './pages/Login'
+import Home from './pages/Home'
+import Users from './pages/Users'
+import Deposit from './pages/Deposit'
+import Conversion from './pages/Conversion'
+import Withdraw from './pages/Withdraw'
 
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<h1>Login</h1>} />
-        <Route path="/home" element={<h1>Home</h1>} />
-        <Route path="/usuarios" element={<h1>Users</h1>} />
-        <Route path="/deposito" element={<h1>Deposit</h1>} />
-        <Route path="/conversao" element={<h1>Conversion</h1>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/deposit" element={<Deposit />} />
+        <Route path="/conversion" element={<Conversion />} />
+        <Route path="/withdraw" element={<Withdraw />} />
 
+        {/* Rota de fallback: qualquer endereço errado manda para o login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
