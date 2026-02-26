@@ -7,7 +7,7 @@ const Sidebar: React.FC = () => {
     const navigate = useNavigate();
 
     const menuItens = [
-        { name: 'Home', path: '/home' },
+        { name: 'Inicio', path: '/home' },
         { name: 'Usuarios', path: '/users' },
         { name: 'Deposito', path: '/deposit' },
         { name: 'Saque', path: '/withdraw' },
