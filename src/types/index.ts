@@ -22,3 +22,11 @@ export interface Transaction {
     date: string;
     observation?: string;
 }
+
+export interface Indicator {
+  id: number;
+  label: string;
+  value: string;
+  trend?: string; 
+  color?: string;
+}
