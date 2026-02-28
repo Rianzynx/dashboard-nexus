@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Layout from "../components/Layout";
 
 const Withdraw: React.FC = () => {
 
 
     return (
-        <div className="flex h-screen bg-nexus-dark overflow-hidden">
-            {/* Sidebar */}
-            <aside className="w-64 flex-shrink-0 hidden lg:block border-r border-white/5">
-                <Sidebar />
-            </aside>
-
-            {/* Sidebar Mobile  */}
-            <div className="lg:hidden">
-                <Sidebar />
-            </div>
-
-        </div>
+        <Layout>
+            <header className="mb-10">
+                <h1 className="text-2xl font-bold text-white">Saques</h1>
+                <p className="text-slate-500 text-sm">...</p>
+            </header>
+        </Layout>
     );
 }
 

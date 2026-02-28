@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type UserStatus = 'ACTIVE' | 'PENDING' | 'BLOCKED';
 export type TransactionType = 'DEPOSIT' | 'WITHDRAW';
 export type AssetType = 'BRL' | 'BTC' | 'ETH' | 'USDT';
@@ -8,7 +10,7 @@ export interface User {
     email: string;
     status: UserStatus;
     createdAt: string;
-    lastActivity: string;   
+    lastActivity: string;
     balance: Record<AssetType, number>;
 }
 
@@ -24,9 +26,10 @@ export interface Transaction {
 }
 
 export interface Indicator {
-  id: number;
-  label: string;
-  value: string;
-  trend?: string; 
-  color?: string;
+    id: number;
+    label: string;
+    value: string;
+    trend?: string;
+    color?: string;
+    icon?: ReactNode;
 }
