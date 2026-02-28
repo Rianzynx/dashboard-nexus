@@ -5,9 +5,17 @@ const Deposit: React.FC = () => {
 
 
     return (
-        <div className="flex min-h-screen bg-nexus-dark">
+        <div className="flex h-screen bg-nexus-dark overflow-hidden">
             {/* Sidebar */}
-            <Sidebar />
+            <aside className="w-64 flex-shrink-0 hidden lg:block border-r border-white/5">
+                <Sidebar />
+            </aside>
+
+            {/* Sidebar Mobile  */}
+            <div className="lg:hidden">
+                <Sidebar />
+            </div>
+
         </div>
     );
 }
