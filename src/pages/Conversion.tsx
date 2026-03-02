@@ -2,7 +2,6 @@ import React from 'react';
 import * as Icon from '../components/Icons';
 import { OptionSelect } from '../components/OptionSelect';
 import { useConversion } from '../hooks/useConversion';
-import Chart from 'react-apexcharts';
 import { PriceChart } from '../components/PriceChart';
 
 const Conversion: React.FC = () => {
