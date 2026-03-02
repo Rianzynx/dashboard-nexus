@@ -2,32 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
+
   .custom-scrollbar::-webkit-scrollbar {
-    width: 8px; 
-    height: 6px; 
+    width: 9px;
+    height: 7px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02); 
-    border-radius: 10px;
+    background: transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(168, 168, 168, 0.8);
+    background: hsl(var(--muted-foreground) / 1);
     border-radius: 10px;
-    transition: background 0.3s ease;
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(214, 178, 178, 0.6); 
+    background: hsl(var(--muted-foreground) / 0.5);
   }
 }
 
@@ -60,6 +66,7 @@ html, body, #root {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -87,4 +94,3 @@ html, body, #root {
     --chart-5: 340 75% 55%;
   }
 }
-
