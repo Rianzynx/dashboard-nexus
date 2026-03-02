@@ -2,7 +2,7 @@ import type { ComponentType, ReactNode } from "react";
 
 export type UserStatus = 'ACTIVE' | 'PENDING' | 'BLOCKED';
 export type TransactionType = 'DEPOSIT' | 'WITHDRAW';
-export type AssetType = 'BRL' | 'BTC' | 'ETH' | 'USDT' | 'SOL' | 'ADA';
+export type AssetType = 'BRL' | 'USD' | 'BTC' | 'ETH' | 'USDT' |  'SOL' | 'ADA';
 
 export interface User {
     id: string;
@@ -42,4 +42,13 @@ export interface AssetDetails {
     icon: ComponentType<{ className?: string }>; 
     color: string;
     bgColor: string;
+}
+
+
+export interface GeckoCoin {
+    id: string;
+    symbol: string;
+    name: string;
+    image: string; 
+    current_price?: number;
 }
