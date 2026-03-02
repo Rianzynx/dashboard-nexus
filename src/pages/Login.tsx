@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogin = (e: React.SyntheticEvent) => {
-        e.preventDefault(); //Previne a pagina de recarregar
+        e.preventDefault(); 
 
         if (email && password) {
             navigate('/home');
