@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoNexus from '../assets/nexus-logo-white.png';
+import LogoNexusDark from '../assets/nexus-logo-black.png';
 import * as Icon from '../components/Icons';
 
 const Sidebar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        return document.documentElement.classList.contains('dark');
+    });
     const [isCollapsed, setIsCollapsed] = useState(() => {
         const saved = localStorage.getItem('@nexus:sidebar-collapsed');
         return saved ? JSON.parse(saved) : false;
     });
 
-    React.useEffect(() => {
+    const toggleTheme = () => {
+        const newMode = !isDarkMode;
+        setIsDarkMode(newMode);
+        if (newMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('@nexus:theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('@nexus:theme', 'light');
+        }
+    };
+
+    useEffect(() => {
         localStorage.setItem('@nexus:sidebar-collapsed', JSON.stringify(isCollapsed));
     }, [isCollapsed]);
 
@@ -24,124 +40,106 @@ const Sidebar: React.FC = () => {
 
     return (
         <>
-            {/* --- NAVBAR FIXA TOPO (Mobile)*/}
-            <nav className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-nexus-dark backdrop-blur-xl border-b border-white/5 z-30 flex items-center justify-between px-6">
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
-                >
+            {/* NAVBAR MOBILE */}
+            <nav className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-nexus-dark backdrop-blur-xl border-b border-slate-200 dark:border-white/5 z-30 flex items-center justify-between px-6 transition-colors">
+                <button onClick={() => setIsOpen(true)} className="p-2 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors">
                     <span className="text-2xl">☰</span>
                 </button>
-
-                <div className="flex items-center gap-3">
-                    <img src={LogoNexus} alt="Logo Nexus" className="w-[90px] h-auto" />
-                </div>
-
-                <button className="p-2 text-white hover:bg-white/5 rounded-lg transition-colors">
+                <img src={isDarkMode ? LogoNexus : LogoNexusDark} alt="Logo Nexus" className="w-[90px] h-auto" />
+                <button className="p-2 text-stone-900 dark:text-white hover:bg-stone-100 dark:hover:bg-white/5 rounded-lg transition-colors">
                     <Icon.User className="w-6 h-6" />
                 </button>
             </nav>
 
-            {/* OVERLAY (Mobile) */}
+            {/* OVERLAY MOBILE */}
             {isOpen && (
-                <div
-                    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 lg:hidden animate-in fade-in duration-300"
-                    onClick={() => setIsOpen(false)}
-                />
+                <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm z-50 lg:hidden animate-in fade-in duration-300" onClick={() => setIsOpen(false)} />
             )}
 
             {/* SIDEBAR CONTAINER */}
             <aside className={`fixed lg:relative top-0 left-0 z-50 h-screen
-                            bg-[#0a0a0b]/80 backdrop-blur-2xl
-                            border-r border-white/5 shadow-[4px_0_24px_rgba(0,0,0,0.3)]
-                            
-                            flex flex-col flex-shrink-0
-                            
-                            transition-[width,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
-                            will-change-[width]
-                            
+                            bg-slate-200 dark:bg-[#0a0a0b]/80 backdrop-blur-2xl
+                            border-r border-slate-200 dark:border-white/5 
+                            flex flex-col flex-shrink-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                     ${isOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full lg:translate-x-0'}
                     ${!isOpen && (isCollapsed ? 'lg:w-[76px]' : 'lg:w-[260px]')}`}>
 
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
-
-
-                {/* BOTÃO DE EXPANDIR/RECOLHER  */}
+                {/* BOTÃO EXPANDIR/RECOLHER */}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className="hidden lg:flex absolute -right-4 top-72 w-6 h-6 rounded-full 
-                                items-center justify-center text-white/70
-                                hover:scale-110 transition-all z-50 shadow-xl 
-                                cursor-pointer group"
+                                items-center justify-center text-slate-400 dark:text-white/70 bg-white dark:bg-[#0a0a0b]
+                                border border-slate-200 dark:border-white/10 hover:scale-110 transition-all z-50 shadow-md group"
                 >
-                    <div
-                        className="transition-transform duration-300 flex items-center justify-center"
-                        style={{ transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                    >
+                    <div className="transition-transform duration-300 flex items-center justify-center"
+                        style={{ transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                         <Icon.CircleArrowRight className="w-7 h-7" />
                     </div>
                 </button>
 
-                {/* Header da Sidebar */}
-                <div className={`p-6 flex items-center transition-all duration-300 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
-                    <div className="relative flex items-center justify-center">
-                        {isCollapsed ? (
-                            <img src='favicon.png' alt="Logo Nexus" className="w-10 h-auto rounded-xl" />
-                        ) : (
-                            <img src={LogoNexus} alt="Logo Nexus" className="w-[120px] h-auto animate-in fade-in duration-500" />
-                        )}
-                    </div>
-
-                    <button
-                        onClick={() => setIsOpen(false)}
-                        className="lg:hidden p-2 text-slate-500 hover:text-white"
-                    >
-                        ✕
-                    </button>
+                {/* LOGO AREA */}
+                <div className={`p-6 flex items-center h-20 transition-all duration-300 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
+                    {isCollapsed ? (
+                        <img src='favicon.png' alt="Logo" className="w-8 h-auto rounded-lg shadow-sm" />
+                    ) : (
+                        <img src={isDarkMode ? LogoNexus : LogoNexusDark} alt="Logo" className="w-[110px] h-auto animate-in fade-in duration-500" />
+                    )}
                 </div>
 
-                {/* LINKS DE NAVEGAÇÃO */}
-                <nav className={`mt-8 flex-1 overflow-y-auto space-y-2 transition-all duration-300 ${isCollapsed ? 'px-2' : 'px-4'}`}>
+                {/* NAVEGAÇÃO */}
+                <nav className={`mt-4 flex-1 overflow-y-auto space-y-1 transition-all duration-300 ${isCollapsed ? 'px-2' : 'px-4'}`}>
                     {menuItems.map((item, index) => (
                         <NavLink
                             key={index}
                             to={item.path}
                             onClick={() => setIsOpen(false)}
-                            title={isCollapsed ? item.name : ''}
                             className={({ isActive }) =>
-                                `flex items-center transition-all rounded-xl border group relative ${isCollapsed ? 'justify-center px-0 py-4' : 'gap-4 px-4 py-3'
-                                } ${isActive ?
-                                    'bg-red-600/10 text-white border-red-600/20 shadow-[0_0_20px_rgba(220,38,38,0.15)]'
-                                    : 'text-white/55 hover:text-slate-200 border-transparent hover:bg-white/5'
+                                `flex items-center transition-all rounded-xl border group relative ${isCollapsed ? 'justify-center h-12' : 'gap-4 px-4 h-12'} 
+                                ${isActive ? 'bg-stone-700/50 dark:bg-red-600/10 text-white dark:text-white border-nexus-offBlack/10 dark:border-red-600/20 shadow-md dark:shadow-[0_0_20px_rgba(220,38,38,0.15)]'
+                                : 'text-slate-900 dark:text-white/55 hover:text-slate-900 dark:hover:text-slate-200 border-transparent hover:bg-black/10 dark:hover:bg-white/5'
                                 }`
                             }
                         >
-                            <span className={`flex-shrink-0 transition-colors ${item.name === 'Início' ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}>
-                                {item.icon}
-                            </span>
-
-                            <span className={`text-[13px] font-bold whitespace-nowrap overflow-hidden transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'}`}>
-                                {item.name}
-                            </span>
-
-                            {isCollapsed && (
-                                <div className="absolute left-0 w-1 h-6 bg-red-600 rounded-r-full opacity-0 group-[.active]:opacity-100 transition-opacity" />
-                            )}
+                            <span className="flex-shrink-0">{item.icon}</span>
+                            {!isCollapsed && <span className="text-[13px] font-bold truncate">{item.name}</span>}
                         </NavLink>
                     ))}
                 </nav>
 
-                {/* INFO RODAPE */}
-                <div className="p-4 mt-auto">
-                    <div className={`rounded-xl bg-white/[0.02] border border-white/5 transition-all duration-300 flex flex-col ${isCollapsed ? 'items-center p-2' : 'p-4'}`}>
+                {/* BOTÃO DE TEMA (MODO WHITE / MODO DARK) */}
+                <div className="px-4 py-2 border-t border-slate-100 dark:border-white/5">
+                    <button
+                        onClick={toggleTheme}
+                        className={`flex items-center gap-3 w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-300 dark:bg-white/[0.02] hover:bg-slate-200 dark:hover:bg-white/5 transition-all
+                        ${isCollapsed ? 'h-10 justify-center px-0' : 'h-11 px-4'}`}
+                    >
+                        <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
+                            <Icon.Moon className={`w-5 h-5 text-indigo-400 transition-all duration-500 absolute 
+                                ${isDarkMode ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`}
+                            />
+                            <Icon.Sun className={`w-5 h-5  text-amber-500  transition-all duration-500 absolute 
+                                ${isDarkMode ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`}
+                            />
+                        </div>
+                        {!isCollapsed && (
+                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                                {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
+                            </span>
+                        )}
+                    </button>
+                </div>
+
+                {/* INFO RODAPÉ */}
+                <div className="p-4 pt-0">
+                    <div className={`rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 transition-all duration-300 flex flex-col ${isCollapsed ? 'items-center p-2' : 'p-3'}`}>
                         {isCollapsed ? (
                             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
                         ) : (
                             <>
-                                <p className="text-[9px] text-slate-600 uppercase tracking-widest font-black">Nexus v1.0</p>
-                                <div className="flex items-center gap-2 mt-1">
+                                <p className="text-[9px] text-slate-400 dark:text-slate-600 uppercase tracking-widest font-black">Nexus v1.0</p>
+                                <div className="flex items-center gap-2 mt-0.5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                                    <span className="text-[10px] text-slate-400 font-medium">Sistema Online</span>
+                                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">Sistema Online</span>
                                 </div>
                             </>
                         )}

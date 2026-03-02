@@ -31,6 +31,15 @@ export const ASSET_CONFIG: Record<AssetType, AssetConfig> = {
         borderColor: 'border-green-500/20',
         precision: 2
     },
+    USD: {
+        name: "Dólar Americano",
+        symbol: "USD",
+        icon: Icon.CryptoDollar, 
+        color: "text-slate-500",
+        bgColor: "bg-slate-500/10",
+        borderColor: "border-slate-500/20",
+        precision: 2,
+    },
     BTC: {
         name: 'Bitcoin',
         symbol: 'BTC',

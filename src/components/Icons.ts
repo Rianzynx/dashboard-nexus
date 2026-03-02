@@ -18,19 +18,24 @@ export {
     Copy,
     Check, 
     History,
-    RotateCcw
+    RotateCcw,
+    Repeat,
+    Lock,
+    Sun,
+    Moon
 } from 'lucide-react';
 
 
 export { 
   FaEthereum as CryptoETH, 
-  FaDollarSign as CryptoUSDT,
+  FaDollarSign as CryptoDollar,
 } from "react-icons/fa";
 
 export {
   SiBitcoinsv as CryptoBTC,
   SiCardano as CryptoADA,
-  SiSolana as CryptoSOL
+  SiSolana as CryptoSOL,
+  SiTether as CryptoUSDT
 } from "react-icons/si";
 
 export {

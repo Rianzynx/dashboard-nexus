@@ -6,6 +6,7 @@ export const mockUsers: User[] = [
         createdAt: '2025-12-15', lastActivity: '2026-02-26',
         balance: {
             BRL: 15450.50,
+            USD: 3200.21,
             BTC: 0.005,
             ETH: 1.25,
             USDT: 500,
@@ -18,6 +19,7 @@ export const mockUsers: User[] = [
         createdAt: '2026-01-10', lastActivity: '2026-02-20',
         balance: {
             BRL: 0,
+            USD: 0.21,
             BTC: 0,
             ETH: 0,
             USDT: 10.50,
@@ -30,6 +32,7 @@ export const mockUsers: User[] = [
         createdAt: '2025-11-20', lastActivity: '2026-01-05',
         balance: {
             BRL: 2500,
+            USD: 0,
             BTC: 0.12,
             ETH: 0,
             USDT: 0,
@@ -42,6 +45,7 @@ export const mockUsers: User[] = [
         createdAt: '2026-02-01', lastActivity: '2026-02-26',
         balance: {
             BRL: 850.75,
+            USD: 0,
             BTC: 0,
             ETH: 0.5,
             USDT: 1200,
@@ -54,6 +58,7 @@ export const mockUsers: User[] = [
         createdAt: '2025-09-12', lastActivity: '2026-02-25',
         balance: {
             BRL: 120,
+            USD: 0,
             BTC: 0.00045,
             ETH: 0.01,
             USDT: 5,
@@ -66,6 +71,7 @@ export const mockUsers: User[] = [
         createdAt: '2026-02-15', lastActivity: '2026-02-16',
         balance: {
             BRL: 0,
+            USD: 0,
             BTC: 0,
             ETH: 0,
             USDT: 0,
@@ -78,6 +84,7 @@ export const mockUsers: User[] = [
         createdAt: '2025-08-30', lastActivity: '2026-02-24',
         balance: {
             BRL: 50000,
+            USD: 9400.50,
             BTC: 2.5,
             ETH: 15.0,
             USDT: 25000,
@@ -90,6 +97,7 @@ export const mockUsers: User[] = [
         createdAt: '2026-01-01', lastActivity: '2026-02-26',
         balance: {
             BRL: 3200.40,
+            USD: 200,
             BTC: 0,
             ETH: 0,
             USDT: 450,
@@ -102,6 +110,7 @@ export const mockUsers: User[] = [
         createdAt: '2025-12-25', lastActivity: '2026-01-01',
         balance: {
             BRL: 1.99,
+            USD: 0,
             BTC: 0,
             ETH: 0,
             USDT: 0,
@@ -114,6 +123,7 @@ export const mockUsers: User[] = [
         createdAt: '2026-02-10', lastActivity: '2026-02-26',
         balance: {
             BRL: 12500,
+            USD: 80,
             BTC: 0.015,
             ETH: 2.8,
             USDT: 300,

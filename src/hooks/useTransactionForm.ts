@@ -28,11 +28,29 @@ export const useTransactionForm = (type: TransactionType) => {
 
     const config = ASSET_CONFIG[selectedAsset];
     const availableBalance = currentUser ? (currentUser.balance[selectedAsset] || 0) : 0;
-    const isOverBalance = type === 'WITHDRAW' && Number(amount) > availableBalance;
+    const isOverBalance = type === 'WITHDRAW' && Number(amount) > (availableBalance + 0.000000000001);
 
     const executeTransaction = () => {
+        const targetUser = users.find(u => u.id === selectedUserId);
+
+        if (!targetUser) {
+            toast.error("Usuário não encontrado.");
+            return;
+        }
+
+        if (targetUser.status === 'BLOCKED') {
+            toast.error("Operação negada: Este usuário está BLOQUEADO.");
+            return;
+        }
+
+        if (targetUser.status === 'PENDING') {
+            toast.error("Operação negada: Este usuário ainda está PENDENTE.");
+            return;
+        }
+
+
         const value = Number(amount);
-        if (type === 'WITHDRAW' && value > availableBalance) {
+        if (type === 'WITHDRAW' && value > (availableBalance + 0.000000000001)) {
             toast.error("Saldo insuficiente.");
             return;
         }
@@ -50,7 +68,7 @@ export const useTransactionForm = (type: TransactionType) => {
             const newTransaction: Transaction = {
                 id: `tx-${Date.now()}`,
                 userId: selectedUserId,
-                userName: currentUser?.name || 'Desconhecido',
+                userName: targetUser?.name || 'Desconhecido',
                 type: type,
                 amount: value,
                 asset: selectedAsset,

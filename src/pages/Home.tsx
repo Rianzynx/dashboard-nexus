@@ -8,7 +8,6 @@ import { ASSET_CONFIG } from '../config/assets';
 import type { AssetType } from "../types";
 import { useTransactionContext } from "../contexts/TransactionContext";
 
-
 const Home: React.FC = () => {
     const { allTransactions } = useTransactionContext();
     const [showAll, setShowAll] = useState(false);
@@ -16,19 +15,17 @@ const Home: React.FC = () => {
     return (
         <>
             <header className="mb-10">
-                <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors">Dashboard</h1>
                 <p className="text-slate-500 text-sm">Bem-vindo ao Nexus, Usuario.</p>
             </header>
 
-            {/* INDICADORES  */}
+            {/* INDICADORES */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {mockIndicators.map((item: any) => (
-                    <div key={item.id} className="relative overflow-hiddenn bg-nexus-offBlack/30 backdrop-blur-md 
-                            py-4 px-4 rounded-2xl border border-white/10 
-                            hover:bg-white/[0.07] hover:border-white/20 
-                            transition-all duration-500 
-                            flex items-center gap-4 
-                            group">
+                    <div key={item.id} className="relative bg-slate-200 dark:bg-nexus-offBlack/30 backdrop-blur-md 
+                            py-4 px-4 rounded-2xl border border-slate-300 dark:border-white/10 
+                            hover:bg-slate-200 dark:hover:bg-white/[0.07] hover:border-slate-400 dark:hover:border-white/20 
+                            transition-all duration-500 flex items-center gap-4 group">
 
                         {item.icon && (
                             <div className={`p-2.5 rounded-xl flex-shrink-0 relative ${item.color}`}>
@@ -42,7 +39,7 @@ const Home: React.FC = () => {
                             <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-wider mb-0.5 truncate">
                                 {item.label}
                             </p>
-                            <h3 className="text-base md:text-lg font-black text-white tracking-tight truncate">
+                            <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white tracking-tight truncate transition-colors">
                                 {item.value}
                             </h3>
                         </div>
@@ -51,15 +48,14 @@ const Home: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
-                {/* MOVIMENTAÇÕES*/}
-                <section className="lg:col-span-2 bg-nexus-offBlack/30 rounded-2xl p-6   border border-white/5 ">
+                {/* MOVIMENTAÇÕES */}
+                <section className="lg:col-span-2 bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-colors">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg text-white font-bold">Últimas Movimentações</h2>
+                        <h2 className="text-lg text-slate-900 dark:text-white font-bold transition-colors">Últimas Movimentações</h2>
 
                         <button
                             onClick={() => setShowAll(!showAll)}
-                            className="text-xs text-[#2badca] hover:text-[#104c5a] transition-colors font-semibold uppercase tracking-wider">
-
+                            className="text-xs text-[#2badca] hover:brightness-125 transition-all font-semibold uppercase tracking-wider">
                             {showAll ? 'Ver Menos' : 'Ver Todas'}
                         </button>
                     </div>
@@ -72,20 +68,20 @@ const Home: React.FC = () => {
 
                                 return (
                                     <AnimatedItem key={transaction.id} index={index}>
-                                        <div className="flex justify-between items-center p-4 bg-white/[0.03] rounded-xl border border-white/5 hover:bg-white/[0.06] transition-all group">
+                                        <div className="flex justify-between items-center p-4 bg-black/5 dark:bg-white/[0.03] rounded-xl  dark:border-black/5 hover:bg-slate-300 dark:hover:bg-white/[0.06] transition-all group">
                                             <div className="flex items-center gap-4">
-                                                <div className={`p-2 rounded-lg`}>
+                                                <div className="p-2 rounded-lg dark:bg-transparent shadow-sm dark:shadow-none">
                                                     <IconComponent className={`w-4 h-4 ${config.color}`} />
                                                 </div>
                                                 <div>
-                                                    <p className="text-white font-medium text-sm">{transaction.userName}</p>
+                                                    <p className="text-slate-900 dark:text-white font-medium text-sm transition-colors">{transaction.userName}</p>
                                                     <p className="text-slate-500 text-[10px] uppercase tracking-wider">
                                                         {new Date(transaction.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })} • {transaction.type}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <p className={`font-bold text-sm  ${transaction.type === 'DEPOSIT' ? 'text-emerald-400' : 'text-rose-500'}`}>
+                                                <p className={`font-bold text-sm ${transaction.type === 'DEPOSIT' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-500'}`}>
                                                     {transaction.type === 'DEPOSIT' ? '+' : '-'} {transaction.amount}
                                                 </p>
                                                 <p className="text-[10px] text-slate-500 font-bold">{transaction.asset}</p>
@@ -101,33 +97,31 @@ const Home: React.FC = () => {
                     </AnimatedList>
                 </section>
 
-                {/* ATIVOS*/}
-                <section className="bg-nexus-offBlack/30 rounded-2xl p-6 border border-white/5">
-                    <h2 className="text-lg text-white font-bold mb-6">Saldo dos ativos</h2>
+                {/* ATIVOS */}
+                <section className="bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-colors">
+                    <h2 className="text-lg text-slate-900 dark:text-white font-bold mb-6 transition-colors">Saldo dos ativos</h2>
                     <div className="space-y-4">
                         {mockAssets.map((asset) => {
                             const config = ASSET_CONFIG[asset.ticker as AssetType];
                             const AssetIcon = config.icon;
                             return (
-                                <div key={asset.ticker} className="flex justify-between items-center p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all group">
+                                <div key={asset.ticker} className="flex justify-between items-center p-3 rounded-xl bg-slate-200/40 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-all group">
                                     <div className="flex items-center gap-4">
-                                        <div className={`p-2 rounded-lg ${config.bgColor} border ${config.borderColor}`}>
+                                        <div className={`p-2 rounded-lg ${config.bgColor} border ${config.borderColor} shadow-sm dark:shadow-none`}>
                                             <AssetIcon className={`w-5 h-5 ${config.color}`} />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="font-bold text-white text-sm">{asset.ticker}</span>
+                                            <span className="font-bold text-slate-900 dark:text-white text-sm transition-colors">{asset.ticker}</span>
                                             <span className="text-[10px] text-slate-500 uppercase">{config.name}</span>
                                         </div>
                                     </div>
-                                    <span className="text-slate-200 font-mono text-sm">{asset.value}</span>
+                                    <span className="text-slate-700 dark:text-slate-200 font-mono text-sm transition-colors">{asset.value}</span>
                                 </div>
                             );
                         })}
                     </div>
                 </section>
-
             </div>
-
         </>
     );
 };
