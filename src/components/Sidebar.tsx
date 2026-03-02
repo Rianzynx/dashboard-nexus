@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoNexus from '../assets/nexus-logo-white.png';
-import * as Icon from '../components/icons';
+import * as Icon from '../components/Icons';
 
 const Sidebar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(() => {
+        const saved = localStorage.getItem('@nexus:sidebar-collapsed');
+        return saved ? JSON.parse(saved) : false;
+    });
+
+    React.useEffect(() => {
+        localStorage.setItem('@nexus:sidebar-collapsed', JSON.stringify(isCollapsed));
+    }, [isCollapsed]);
 
     const menuItems = [
         { name: 'Início', path: '/home', icon: <Icon.Home className="w-6 h-6" /> },
@@ -18,7 +25,7 @@ const Sidebar: React.FC = () => {
     return (
         <>
             {/* --- NAVBAR FIXA TOPO (Mobile)*/}
-            <nav className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0b0c21]/95 backdrop-blur-xl border-b border-white/5 z-30 flex items-center justify-between px-6">
+            <nav className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-nexus-dark backdrop-blur-xl border-b border-white/5 z-30 flex items-center justify-between px-6">
                 <button
                     onClick={() => setIsOpen(true)}
                     className="p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
@@ -44,29 +51,33 @@ const Sidebar: React.FC = () => {
             )}
 
             {/* SIDEBAR CONTAINER */}
-            <aside className={`
-                fixed lg:relative top-0 left-0 z-50
-                h-screen bg-[#0b0c21] border-r border-white/5 
-                transition-all duration-300 ease-in-out
-                flex flex-col flex-shrink-0
-                
-                ${isOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0'}
-                ${!isOpen && (isCollapsed ? 'lg:w-20' : 'lg:w-64')}
-            `}>
+            <aside className={`fixed lg:relative top-0 left-0 z-50 h-screen
+                            bg-[#0a0a0b]/80 backdrop-blur-2xl
+                            border-r border-white/5 shadow-[4px_0_24px_rgba(0,0,0,0.3)]
+                            
+                            flex flex-col flex-shrink-0
+                            
+                            transition-[width,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+                            will-change-[width]
+                            
+                    ${isOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full lg:translate-x-0'}
+                    ${!isOpen && (isCollapsed ? 'lg:w-[76px]' : 'lg:w-[260px]')}`}>
+
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+
 
                 {/* BOTÃO DE EXPANDIR/RECOLHER  */}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className="hidden lg:flex absolute -right-4 top-72 w-6 h-6 rounded-full 
-                                items-center justify-center text-red-800/90
+                                items-center justify-center text-white/70
                                 hover:scale-110 transition-all z-50 shadow-xl 
-                                cursor-pointer group bg-[#0b0c21]/95"
+                                cursor-pointer group"
                 >
                     <div
                         className="transition-transform duration-300 flex items-center justify-center"
                         style={{ transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}
                     >
-                        {/* Verifique se o nome do seu ícone é ChevronLeft ou ArrowLeft */}
                         <Icon.CircleArrowRight className="w-7 h-7" />
                     </div>
                 </button>
@@ -75,8 +86,7 @@ const Sidebar: React.FC = () => {
                 <div className={`p-6 flex items-center transition-all duration-300 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
                     <div className="relative flex items-center justify-center">
                         {isCollapsed ? (
-                            // Logo minificada ou Ícone quando encolhido
-                            <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-black text-white italic shadow-lg animate-in zoom-in duration-300">N</div>
+                            <img src='favicon.png' alt="Logo Nexus" className="w-10 h-auto rounded-xl" />
                         ) : (
                             <img src={LogoNexus} alt="Logo Nexus" className="w-[120px] h-auto animate-in fade-in duration-500" />
                         )}
@@ -102,7 +112,7 @@ const Sidebar: React.FC = () => {
                                 `flex items-center transition-all rounded-xl border group relative ${isCollapsed ? 'justify-center px-0 py-4' : 'gap-4 px-4 py-3'
                                 } ${isActive ?
                                     'bg-red-600/10 text-white border-red-600/20 shadow-[0_0_20px_rgba(220,38,38,0.15)]'
-                                    : 'text-slate-500 hover:text-slate-200 border-transparent hover:bg-white/5'
+                                    : 'text-white/55 hover:text-slate-200 border-transparent hover:bg-white/5'
                                 }`
                             }
                         >
@@ -114,7 +124,6 @@ const Sidebar: React.FC = () => {
                                 {item.name}
                             </span>
 
-                            {/* Indicador visual de Active quando encolhido */}
                             {isCollapsed && (
                                 <div className="absolute left-0 w-1 h-6 bg-red-600 rounded-r-full opacity-0 group-[.active]:opacity-100 transition-opacity" />
                             )}
@@ -122,7 +131,7 @@ const Sidebar: React.FC = () => {
                     ))}
                 </nav>
 
-                {/* INFO RODAPÉ */}
+                {/* INFO RODAPE */}
                 <div className="p-4 mt-auto">
                     <div className={`rounded-xl bg-white/[0.02] border border-white/5 transition-all duration-300 flex flex-col ${isCollapsed ? 'items-center p-2' : 'p-4'}`}>
                         {isCollapsed ? (

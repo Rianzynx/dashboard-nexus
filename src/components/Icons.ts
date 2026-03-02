@@ -12,5 +12,28 @@ export {
     ChevronDown,
     SortAsc,
     ShieldCheck,
-    CircleArrowRight
+    CircleArrowRight,
+    AlertTriangle,
+    Clock,
+    Copy,
+    Check, 
+    History,
+    RotateCcw
 } from 'lucide-react';
+
+
+export { 
+  FaEthereum as CryptoETH, 
+  FaDollarSign as CryptoUSDT,
+} from "react-icons/fa";
+
+export {
+  SiBitcoinsv as CryptoBTC,
+  SiCardano as CryptoADA,
+  SiSolana as CryptoSOL
+} from "react-icons/si";
+
+export {
+  PiBankFill as CryptoBRL,
+} from "react-icons/pi";
+
