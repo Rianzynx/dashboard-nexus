@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 export type UserStatus = 'ACTIVE' | 'PENDING' | 'BLOCKED';
 export type TransactionType = 'DEPOSIT' | 'WITHDRAW';
-export type AssetType = 'BRL' | 'BTC' | 'ETH' | 'USDT';
+export type AssetType = 'BRL' | 'BTC' | 'ETH' | 'USDT' | 'SOL' | 'ADA';
 
 export interface User {
     id: string;
@@ -27,9 +27,19 @@ export interface Transaction {
 
 export interface Indicator {
     id: number;
+    ticker?: AssetType;
     label: string;
     value: string;
     trend?: string;
     color?: string;
     icon?: ReactNode;
+}
+
+
+export interface AssetDetails {
+    symbol: AssetType;
+    name: string;
+    icon: ComponentType<{ className?: string }>; 
+    color: string;
+    bgColor: string;
 }

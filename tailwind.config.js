@@ -12,8 +12,10 @@ export default {
       },
   		colors: {
   			nexus: {
-  				dark: '#070713',
-          darkM: '#0f0f30',
+  				dark: '#0f0f11',
+          darkM: '#101011',
+          offBlack: '#2b2b2c',
+          pBlack: '#131316',
   				primary: '#1e293b',
   				accent: '#3b82f6',
   				success: '#10b981',
