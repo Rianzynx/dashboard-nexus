@@ -51,12 +51,11 @@ export const useConversion = () => {
         }
     }, [API_KEY]);
 
-    // --- CARREGAR ATIVOS (COM CACHE) ---
     useEffect(() => {
         const fetchTopCoins = async () => {
             const cached = localStorage.getItem('nexus-assets-cache');
             const lastFetch = localStorage.getItem('nexus-assets-last-fetch');
-
+            
             if (cached && lastFetch && Date.now() - Number(lastFetch) < 5 * 60 * 1000) {
                 const apiData = JSON.parse(cached);
                 setAssets([...FIAT_ASSETS, ...apiData]);
@@ -73,21 +72,31 @@ export const useConversion = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setAssets([...FIAT_ASSETS, ...data]); 
+                    setAssets([...FIAT_ASSETS, ...data]);
                     localStorage.setItem('nexus-assets-cache', JSON.stringify(data));
                     localStorage.setItem('nexus-assets-last-fetch', Date.now().toString());
-                } else if (response.status === 429) {
-                    console.error("Limite de taxa atingido (Rate Limit). Usando cache.");
+                } else {
+                    console.warn(`API Error ${response.status}. Tentando recuperar cache antigo...`);
+                    if (cached) {
+                        setAssets([...FIAT_ASSETS, ...JSON.parse(cached)]);
+                    } else {
+                        setAssets(FIAT_ASSETS); 
+                    }
                 }
             } catch (err) {
-                console.error("Erro na requisição:", err);
+                console.error("Erro de conexão/CORS:", err);
+                if (cached) {
+                    setAssets([...FIAT_ASSETS, ...JSON.parse(cached)]);
+                } else {
+                    setAssets(FIAT_ASSETS);
+                }
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchTopCoins();
-    }, []);
+    }, [API_KEY]); 
 
     useEffect(() => {
         if (assets.length > 0) {
