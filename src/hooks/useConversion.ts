@@ -1,15 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { AssetType, GeckoCoin } from '../types';
+import { FIAT_ASSETS } from '../constants/fiatAssets';
 
 export const useConversion = () => {
     const [assets, setAssets] = useState<GeckoCoin[]>([]);
     const [fromAsset, setFromAsset] = useState<AssetType>('BTC');
-    const [toAsset, setToAsset] = useState<AssetType>('USDT');
+    const [toAsset, setToAsset] = useState<AssetType>('BRL');
     const [amount, setAmount] = useState<string>('');
     const [result, setResult] = useState<{ value: number; rate: number } | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [chartData, setChartData] = useState<[number, number][]>([]);
     const [isLoading, setIsLoading] = useState(true);
+
 
     const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
 
@@ -56,7 +58,8 @@ export const useConversion = () => {
             const lastFetch = localStorage.getItem('nexus-assets-last-fetch');
 
             if (cached && lastFetch && Date.now() - Number(lastFetch) < 5 * 60 * 1000) {
-                setAssets(JSON.parse(cached));
+                const apiData = JSON.parse(cached);
+                setAssets([...FIAT_ASSETS, ...apiData]);
                 setIsLoading(false);
                 return;
             }
@@ -70,7 +73,7 @@ export const useConversion = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setAssets(data);
+                    setAssets([...FIAT_ASSETS, ...data]); 
                     localStorage.setItem('nexus-assets-cache', JSON.stringify(data));
                     localStorage.setItem('nexus-assets-last-fetch', Date.now().toString());
                 } else if (response.status === 429) {
@@ -92,11 +95,15 @@ export const useConversion = () => {
                 c => c.symbol.toLowerCase() === fromAsset.toLowerCase()
             );
 
-            if (currentCoin?.id) {
+            const isFiat = ['brl', 'usd', 'eur'].includes(fromAsset.toLowerCase());
+
+            if (currentCoin?.id && !isFiat) {
                 const timer = setTimeout(() => {
                     fetchHistory(currentCoin.id);
                 }, 400);
                 return () => clearTimeout(timer);
+            } else {
+                setChartData([]);
             }
         }
     }, [fromAsset, assets, fetchHistory]);
@@ -104,19 +111,42 @@ export const useConversion = () => {
     // --- LÓGICA DE CONVERSÃO ---
     const handleConvert = useCallback(() => {
         const numAmount = Number(amount);
+
         if (!amount || isNaN(numAmount) || numAmount <= 0 || assets.length === 0) {
             setResult(null);
             return;
         }
 
-        const fromCoin = assets.find(c => c.symbol.toUpperCase() === fromAsset.toUpperCase());
-        const toCoin = assets.find(c => c.symbol.toUpperCase() === toAsset.toUpperCase());
+        const termFrom = fromAsset.toLowerCase().trim();
+        const termTo = toAsset.toLowerCase().trim();
 
-        if (fromCoin?.current_price && toCoin?.current_price) {
-            const rate = fromCoin.current_price / toCoin.current_price;
-            setResult({ rate, value: numAmount * rate });
-            setError(null);
+        const fromCoin = assets.find(c =>
+            c.symbol.toLowerCase() === termFrom ||
+            c.id.toLowerCase() === termFrom
+        );
+
+        const toCoin = assets.find(c =>
+            c.symbol.toLowerCase() === termTo ||
+            c.id.toLowerCase() === termTo
+        );
+
+        if (fromCoin && toCoin) {
+            const priceFrom = Number(fromCoin.current_price);
+            const priceTo = Number(toCoin.current_price);
+
+            if (priceFrom > 0 && priceTo > 0) {
+                const rate = priceFrom / priceTo;
+                setResult({ rate, value: numAmount * rate });
+                setError(null);
+                console.log(`SUCESSO! ${fromCoin.name} -> ${toCoin.name} | Taxa: ${rate}`);
+            } else {
+                setError("Erro nos valores de preço (Zero).");
+            }
         } else {
+            console.warn("Falha crítica na busca:", {
+                buscouPor: { termFrom, termTo },
+                disponiveis: assets.map(a => `${a.symbol}:${a.id}`).slice(0, 10)
+            });
             setError("Preços indisponíveis.");
         }
     }, [amount, fromAsset, toAsset, assets]);

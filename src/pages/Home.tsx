@@ -141,7 +141,7 @@ const Home: React.FC = () => {
                         })}
                     </div>
 
-                    {/* BOTÃO VER MAIS (Mantenha o botão que criamos antes aqui) */}
+                    {/* BOTÃO VER MAIS */}
                     {assetBalances.length > 5 && (
                         <button
                             onClick={() => setShowAllAssets(!showAllAssets)}

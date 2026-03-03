@@ -30,7 +30,14 @@ const Conversion: React.FC = () => {
                             options={assets.map(coin => ({
                                 id: coin.symbol.toUpperCase(),
                                 label: coin.name,
-                                icon: <img src={coin.image} className="w-5 h-5 rounded-full" alt="" />
+                                icon: coin.icon ? (
+
+                                    <div className="w-5 h-5 flex items-center justify-center">
+                                        {coin.icon}
+                                    </div>
+                                ) : (
+                                    <img src={coin.image} className="w-5 h-5 rounded-full" alt="" />
+                                )
                             }))}
                         />
                         <input
@@ -61,7 +68,14 @@ const Conversion: React.FC = () => {
                             options={assets.map(coin => ({
                                 id: coin.symbol.toUpperCase(),
                                 label: coin.name,
-                                icon: <img src={coin.image} className="w-5 h-5 rounded-full" alt="" />
+                                icon: coin.icon ? (
+
+                                    <div className="w-5 h-5 flex items-center justify-center">
+                                        {coin.icon}
+                                    </div>
+                                ) : (
+                                    <img src={coin.image} className="w-5 h-5 rounded-full" alt="" />
+                                )
                             }))}
                         />
                         <div className="p-3 text-2xl text-gray-600 dark:text-gray-400 min-h-[40px] border-b border-transparent">
@@ -73,23 +87,32 @@ const Conversion: React.FC = () => {
                 </div>
 
                 {/* --- GRÁFICO INTEGRADO --- */}
-                {chartData && chartData.length > 0 && (
-                    <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="flex justify-between items-end mb-2 px-1">
-                            <span className="text-[10px]  uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
-                                Tendência 7 Dias
-                            </span>
-                            <span className="text-[10px]  text-gray-400">
-                                {fromAsset}/USD
-                            </span>
+                <div className="mt-8 min-h-[200px] flex flex-col">
+                    {chartData && chartData.length > 0 ? (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <div className="flex justify-between items-end mb-2 px-1">
+                                <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+                                    Tendência 7 Dias
+                                </span>
+                                <span className="text-[10px] text-gray-400">
+                                    {fromAsset}/USD
+                                </span>
+                            </div>
+                            <PriceChart
+                                data={chartData}
+                                isDark={document.documentElement.classList.contains('dark')}
+                            />
                         </div>
-                        <PriceChart
-                            data={chartData}
-                            isDark={document.documentElement.classList.contains('dark')}
-                        />
-                    </div>
-                )}
-
+                    ) : (
+                        /* ESTADO VAZIO PARA MOEDAS FIAT OU CARREGAMENTO */
+                        <div className="flex-1 flex flex-col items-center justify-center border border-dashed border-gray-300 dark:border-white/10 rounded-2xl bg-gray-50/50 dark:bg-white/5">
+                            <Icon.TrendingUp className="w-8 h-8 text-gray-300 dark:text-white/10 mb-2" />
+                            <p className="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                                Histórico indisponível para {fromAsset}
+                            </p>
+                        </div>
+                    )}
+                </div>
                 {error && <p className="mt-4 text-red-500 font-bold text-xs text-center animate-shake">{error}</p>}
 
                 <button

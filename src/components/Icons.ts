@@ -24,13 +24,15 @@ export {
     Sun,
     Moon,
     Wallet,
-    ChevronUp
+    ChevronUp,
+    TrendingUp
 } from 'lucide-react';
 
 
 export { 
   FaEthereum as CryptoETH, 
   FaDollarSign as CryptoDollar,
+  FaEuroSign as CryptoEuro
 } from "react-icons/fa";
 
 export {
