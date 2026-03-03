@@ -9,14 +9,21 @@ import BgLoginBlack from '../assets/login-background-black.jpg';
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isDark, setIsDark] = useState(true);
     const navigate = useNavigate();
+
+    const [isDark, setIsDark] = useState(() => {
+        const saved = localStorage.getItem('@nexus:theme');
+        if (saved) return saved === 'dark';
+        return document.documentElement.classList.contains('dark');
+    });
 
     useEffect(() => {
         if (isDark) {
             document.documentElement.classList.add('dark');
+            localStorage.setItem('@nexus:theme', 'dark');
         } else {
             document.documentElement.classList.remove('dark');
+            localStorage.setItem('@nexus:theme', 'light');
         }
     }, [isDark]);
 
