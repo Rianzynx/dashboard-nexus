@@ -88,7 +88,7 @@ const WithdrawForm: React.FC = () => {
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value)}
                                         placeholder="0.00"
-                                        className={`w-full bg-white dark:bg-white/5 border ${isOverBalance ? 'border-red-500 text-red-500' : 'border-slate-300 dark:border-white/10 text-slate-900 dark:text-white'} rounded-xl p-4 font-mono outline-none transition-all placeholder:text-slate-400`}
+                                        className={`w-full bg-white dark:bg-white/5 border ${isOverBalance ? 'border-red-500 text-red-500' : 'border-slate-300 dark:border-white/10 text-slate-900 dark:text-white'} rounded-xl p-4 outline-none transition-all placeholder:text-slate-400`}
                                     />
                                     {isOverBalance && (
                                         <p className="absolute -bottom-6 left-0 text-[10px] text-red-500 uppercase font-bold animate-pulse">
@@ -105,7 +105,7 @@ const WithdrawForm: React.FC = () => {
                                 {[0.25, 0.5, 0.75, 1].map(p => (
                                     <button
                                         key={p} type="button" onClick={() => setPercentage(p)}
-                                        className="flex-1 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-300 dark:border-white/5 text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-900 dark:hover:bg-white/10 hover:text-white transition-all uppercase"
+                                        className="flex-1 py-2 rounded-lg bg-white dark:bg-white/5 border border-slate-300 dark:border-white/5 text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:bg-stone-400/90 dark:hover:bg-white/10 hover:text-white transition-all uppercase"
                                     >
                                         {p * 100}% {p === 1 && 'MAX'}
                                     </button>
@@ -120,7 +120,7 @@ const WithdrawForm: React.FC = () => {
                                 setShowSuccess(false);
                                 setIsConfirmModalOpen(true);
                             }}
-                            className="w-full bg-slate-900 dark:bg-red-600/70 hover:bg-slate-800 dark:hover:bg-red-600 border border-slate-800 dark:border-red-600/20 text-white font-semibold py-3.5 rounded-xl transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed text-sm uppercase tracking-widest"
+                            className="w-full bg-stone-700 dark:bg-red-600/70 hover:bg-stone-800 dark:hover:bg-red-600 border border-slate-800 dark:border-red-600/20 text-white font-semibold py-3.5 rounded-xl transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed text-sm uppercase tracking-widest"
                         >
                             {isLoading ? 'PROCESSANDO...' : isOverBalance ? 'SALDO INSUFICIENTE' : 'EXECUTAR SAQUE'}
                         </button>
@@ -161,7 +161,7 @@ const WithdrawForm: React.FC = () => {
                                                             <assetCfg.icon className={`w-4 h-4 ${assetCfg.color}`} />
                                                             <span className="text-slate-500 dark:text-slate-400 uppercase font-bold">{ticker}</span>
                                                         </div>
-                                                        <b className="text-slate-900 dark:text-white font-mono">
+                                                        <b className="text-slate-900 dark:text-white">
                                                             {ticker === 'BRL' && value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                                                             {ticker === 'USD' && value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                                                             {ticker !== 'BRL' && ticker !== 'USD' &&
@@ -209,7 +209,7 @@ const WithdrawForm: React.FC = () => {
                                 <tr key={tx.id} className="text-slate-700 dark:text-slate-300 hover:bg-slate-300/30 dark:hover:bg-white/[0.02] transition-colors">
                                     <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{tx.userName}</td>
                                     <td className="px-6 py-4 font-medium">{tx.asset}</td>
-                                    <td className="px-6 py-4 text-red-600 dark:text-red-400 font-mono font-bold">
+                                    <td className="px-6 py-4 text-red-600 dark:text-red-400 font-bold">
                                         - {tx.asset === 'BRL'
                                             ? formatValue(tx.amount, tx.asset)
                                             : parseFloat(tx.amount.toFixed(8)) + ' ' + tx.asset}

@@ -12,14 +12,8 @@ const Conversion: React.FC = () => {
         handleSwap, handleAssetChange
     } = useConversion();
 
-    console.log({
-        temDados: chartData.length > 0,
-        quantidade: chartData.length,
-        primeiroPonto: chartData[0]
-    });
-
     return (
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-1xl mx-auto">
             <header className="mb-10">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">Conversão de Ativos</h1>
                 <p className="text-gray-500 text-sm">Cotações em tempo real via CoinGecko.</p>
@@ -44,7 +38,7 @@ const Conversion: React.FC = () => {
                             placeholder="0.00"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
-                            className="w-full bg-white dark:bg-transparent text-2xl font-mono text-gray-900 dark:text-white p-3 rounded-xl md:rounded-none md:bg-transparent border-b border-gray-300 dark:border-white/10 focus:border-gray-500 dark:focus:border-white/30 outline-none transition-all placeholder:text-gray-400"
+                            className="w-full bg-white dark:bg-transparent text-2xl  text-gray-900 dark:text-white p-3 rounded-xl md:rounded-none md:bg-transparent border-b border-gray-300 dark:border-white/10 focus:border-gray-500 dark:focus:border-white/30 outline-none transition-all placeholder:text-gray-400"
                         />
                     </div>
 
@@ -70,7 +64,7 @@ const Conversion: React.FC = () => {
                                 icon: <img src={coin.image} className="w-5 h-5 rounded-full" alt="" />
                             }))}
                         />
-                        <div className="p-3 text-2xl font-mono text-gray-600 dark:text-gray-400 min-h-[40px] border-b border-transparent">
+                        <div className="p-3 text-2xl text-gray-600 dark:text-gray-400 min-h-[40px] border-b border-transparent">
                             {result?.value != null
                                 ? parseFloat(result.value.toFixed(8)).toLocaleString(undefined, { maximumFractionDigits: 8 })
                                 : '---'}
@@ -82,10 +76,10 @@ const Conversion: React.FC = () => {
                 {chartData && chartData.length > 0 && (
                     <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="flex justify-between items-end mb-2 px-1">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+                            <span className="text-[10px]  uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
                                 Tendência 7 Dias
                             </span>
-                            <span className="text-[10px] font-mono text-gray-400">
+                            <span className="text-[10px]  text-gray-400">
                                 {fromAsset}/USD
                             </span>
                         </div>
@@ -109,7 +103,7 @@ const Conversion: React.FC = () => {
                 {result && (
                     <div className="mt-6 p-4 bg-white dark:bg-nexus-offBlack border border-gray-300 dark:border-white/20 rounded-xl text-center animate-in fade-in zoom-in duration-300 shadow-sm">
                         <p className="text-[10px] text-gray-500 dark:text-white uppercase tracking-widest font-black mb-1">Taxa de Câmbio</p>
-                        <p className="text-green-600 dark:text-green-500 font-mono font-bold text-sm">
+                        <p className="text-green-600 dark:text-green-500 font-bold text-sm">
                             1 {fromAsset} = {parseFloat(result.rate.toFixed(10))} {toAsset}
                         </p>
                     </div>

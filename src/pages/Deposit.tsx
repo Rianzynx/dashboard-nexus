@@ -147,7 +147,7 @@ const Deposit: React.FC = () => {
                                                             <assetCfg.icon className={`w-4 h-4 ${assetCfg.color}`} />
                                                             <span className="text-slate-500 dark:text-slate-400 uppercase font-bold">{ticker}</span>
                                                         </div>
-                                                        <b className="text-slate-900 dark:text-white font-mono">
+                                                        <b className="text-slate-900 dark:text-white">
                                                             {ticker === 'BRL' && value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                                                             {ticker === 'USD' && value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                                                             {ticker !== 'BRL' && ticker !== 'USD' &&

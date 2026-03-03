@@ -151,7 +151,7 @@ const Users: React.FC = () => {
                 <div className="overflow-x-auto custom-scrollbar">
                     <table className="w-full text-left border-collapse min-w-[800px]">
                         <thead>
-                            <tr className="bg-stone-700/40 dark:bg-white/[0.02] text-white dark:text-slate-500 text-[11px] uppercase tracking-[0.1em] font-black">
+                            <tr className="bg-stone-700/70 dark:bg-white/[0.02] text-white dark:text-slate-500 text-[11px] uppercase tracking-[0.1em] font-black">
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Usuário</th>
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">E-mail</th>
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Status</th>
