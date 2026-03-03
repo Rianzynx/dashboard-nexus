@@ -17,6 +17,11 @@ export const useTransactionForm = (type: TransactionType) => {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
+    const resetForm = () => {
+        setAmount('');
+        setObservation('');
+    };
+
     // Filtra transações apenas do tipo atual para mostrar na tabela da página
     const transactions = useMemo(() =>
         allTransactions.filter(t => t.type === type),
@@ -83,6 +88,7 @@ export const useTransactionForm = (type: TransactionType) => {
             setObservation('');
             setIsLoading(false);
             setShowSuccess(true);
+            resetForm();
         }, 1000);
     };
 

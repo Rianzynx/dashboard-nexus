@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { mockIndicators } from "../mocks/indicators";
-import { mockAssets } from "../mocks/assets";
 
 import AnimatedList, { AnimatedItem } from "../components/AnimatedList";
 
 import { ASSET_CONFIG } from '../config/assets';
 import type { AssetType } from "../types";
 import { useTransactionContext } from "../contexts/TransactionContext";
+import { useIndicators } from "../hooks/useIndicators"
+import { useAssetBalances } from "../hooks/useAssetBalances";
+
 
 const Home: React.FC = () => {
     const { allTransactions } = useTransactionContext();
     const [showAll, setShowAll] = useState(false);
+    const { indicators } = useIndicators();
+    const { assetBalances } = useAssetBalances();
+    const [showAllAssets, setShowAllAssets] = React.useState(false);
 
     return (
         <>
@@ -21,13 +25,15 @@ const Home: React.FC = () => {
 
             {/* INDICADORES */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {mockIndicators.map((item: any) => (
+                {/* Trocamos mockIndicators por indicators (que vem do hook) */}
+                {indicators.map((item) => (
                     <div key={item.id} className="relative bg-slate-200 dark:bg-nexus-offBlack/30 backdrop-blur-md 
-                            py-4 px-4 rounded-2xl border border-slate-300 dark:border-white/10 
-                            hover:bg-slate-200 dark:hover:bg-white/[0.07] hover:border-slate-400 dark:hover:border-white/20 
-                            transition-all duration-500 flex items-center gap-4 group">
+                py-4 px-4 rounded-2xl border border-slate-300 dark:border-white/10 
+                hover:bg-slate-200 dark:hover:bg-white/[0.07] hover:border-slate-400 dark:hover:border-white/20 
+                transition-all duration-500 flex items-center gap-4 group">
 
                         {item.icon && (
+
                             <div className={`p-2.5 rounded-xl flex-shrink-0 relative ${item.color}`}>
                                 <div className="relative z-10 scale-90 md:scale-100">
                                     {item.icon}
@@ -35,7 +41,7 @@ const Home: React.FC = () => {
                             </div>
                         )}
 
-                        <div className="relative z-10 min-w-0"> 
+                        <div className="relative z-10 min-w-0">
                             <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-wider mb-0.5 truncate">
                                 {item.label}
                             </p>
@@ -100,12 +106,14 @@ const Home: React.FC = () => {
                 {/* ATIVOS */}
                 <section className="bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-colors">
                     <h2 className="text-lg text-slate-900 dark:text-white font-bold mb-6 transition-colors">Saldo dos ativos</h2>
+
                     <div className="space-y-4">
-                        {mockAssets.map((asset) => {
+                        {assetBalances.slice(0, showAllAssets ? undefined : 5).map((asset) => {
                             const config = ASSET_CONFIG[asset.ticker as AssetType];
                             const AssetIcon = config.icon;
+
                             return (
-                                <div key={asset.ticker} className="flex justify-between items-center p-3 rounded-xl bg-slate-200/40 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-all group">
+                                <div key={asset.ticker} className="flex justify-between items-center p-3 rounded-xl bg-slate-200/40 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-all group animate-in fade-in slide-in-from-top-1">
                                     <div className="flex items-center gap-4">
                                         <div className={`p-2 rounded-lg ${config.bgColor} border ${config.borderColor} shadow-sm dark:shadow-none`}>
                                             <AssetIcon className={`w-5 h-5 ${config.color}`} />
@@ -115,11 +123,34 @@ const Home: React.FC = () => {
                                             <span className="text-[10px] text-slate-500 uppercase">{config.name}</span>
                                         </div>
                                     </div>
-                                    <span className="text-slate-700 dark:text-slate-200 font-mono text-sm transition-colors">{asset.value}</span>
+
+                                    {/* LADO DIREITO: VALORES */}
+                                    <div className="flex flex-col items-end">
+                                        <span className="text-slate-700 dark:text-slate-200 font-mono text-sm font-bold transition-colors">
+                                            {asset.value}
+                                        </span>
+
+                                        {/* Mostra a conversão apenas se não for BRL e se houver saldo */}
+                                        {asset.ticker !== 'BRL' && asset.rawTotal > 0 && (
+                                            <span className="text-[10px] text-slate-500 font-medium animate-in fade-in duration-500">
+                                                ≈ {asset.convertedBRL}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             );
                         })}
                     </div>
+
+                    {/* BOTÃO VER MAIS (Mantenha o botão que criamos antes aqui) */}
+                    {assetBalances.length > 5 && (
+                        <button
+                            onClick={() => setShowAllAssets(!showAllAssets)}
+                            className="w-full mt-6 py-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-center gap-2"
+                        >
+                            {showAllAssets ? "Ver Menos" : `Ver Todos (${assetBalances.length})`}
+                        </button>
+                    )}
                 </section>
             </div>
         </>

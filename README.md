@@ -38,18 +38,18 @@ Sistema de gestão financeira que permite visualizar usuários, gerenciar saldos
    ```
 
 3. **Instale as dependências:**
-  ```bash
+   ```bash
     npm install
    ```
 
 4. **Configuração de API:**
    Crie um arquivo .env na raiz e adicione sua chave:
-  ```bash
+   ```bash
     VITE_COINGECKO_API_KEY=sua_chave_aqui
    ```
 
 5. **Execute o ambiente de desenvolvimento:**
-  ```bash
+   ```bash
     npm run dev
    ```
    O projeto estará disponível em http://localhost:5173
@@ -81,6 +81,3 @@ Optei por utilizar arquivos `.ts` para os mocks em vez de `.json` para aproveita
 
 ### 4. Context API
 Utilizei Context API para simular o comportamento de um banco de dados em memória, permitindo que novos depósitos ou saques reflitam instantaneamente no saldo global.
-
-### 5. Arquitetura de Pastas
-Organizei o projeto em /components, /context, /mocks, /pages, /services e /types para manter o código limpo e escalável.

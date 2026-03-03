@@ -22,7 +22,9 @@ export {
     Repeat,
     Lock,
     Sun,
-    Moon
+    Moon,
+    Wallet,
+    ChevronUp
 } from 'lucide-react';
 
 
