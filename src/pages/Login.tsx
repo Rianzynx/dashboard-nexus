@@ -37,7 +37,7 @@ const Login: React.FC = () => {
     }
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center bg-nexus-offBlack/20 dark:bg-nexus-dark px-4 transition-colors duration-300">
+        <div className="relative min-h-screen flex items-center justify-center bg-nexus-offBlack/20 dark:bg-stone-500/10 px-4 transition-colors duration-300">
 
             {/* Botão de Alternar Tema ( */}
             <button

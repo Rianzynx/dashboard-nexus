@@ -52,3 +52,11 @@ export interface GeckoCoin {
     image: string; 
     current_price?: number;
 }
+
+export interface TransactionContextData {
+    users: User[];
+    allTransactions: Transaction[];
+    prices: GeckoCoin[];
+    isLoadingPrices: boolean; 
+    updateData: (newTransaction: Transaction, updatedUsers: User[]) => void;
+}

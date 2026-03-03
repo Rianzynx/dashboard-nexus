@@ -25,7 +25,6 @@ const Home: React.FC = () => {
 
             {/* INDICADORES */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {/* Trocamos mockIndicators por indicators (que vem do hook) */}
                 {indicators.map((item) => (
                     <div key={item.id} className="relative bg-slate-200 dark:bg-nexus-offBlack/30 backdrop-blur-md 
                 py-4 px-4 rounded-2xl border border-slate-300 dark:border-white/10 

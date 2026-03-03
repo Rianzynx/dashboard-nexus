@@ -66,7 +66,7 @@ const Sidebar: React.FC = () => {
 
             {/* SIDEBAR CONTAINER */}
             <aside className={`fixed lg:relative top-0 left-0 z-50 h-screen
-                            bg-slate-200 dark:bg-[#0a0a0b]/80 backdrop-blur-2xl
+                            bg-slate-200 dark:bg-[#0a0a0b]/30 backdrop-blur-2xl
                             border-r border-slate-200 dark:border-white/5 
                             flex flex-col flex-shrink-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                     ${isOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full lg:translate-x-0'}

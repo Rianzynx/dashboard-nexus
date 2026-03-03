@@ -9,6 +9,7 @@ export const useConversion = () => {
     const [result, setResult] = useState<{ value: number; rate: number } | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [chartData, setChartData] = useState<[number, number][]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
 
@@ -18,7 +19,7 @@ export const useConversion = () => {
 
         const cacheKey = `chart-cache-${coinId}`;
         const cachedData = localStorage.getItem(cacheKey);
-        
+
         if (cachedData) {
             const { timestamp, prices } = JSON.parse(cachedData);
             if (Date.now() - timestamp < 30 * 60 * 1000) {
@@ -37,7 +38,6 @@ export const useConversion = () => {
                 const data = await response.json();
                 if (data.prices) {
                     setChartData(data.prices);
-                    // 2. Salvar no Cache
                     localStorage.setItem(cacheKey, JSON.stringify({
                         timestamp: Date.now(),
                         prices: data.prices
@@ -53,22 +53,38 @@ export const useConversion = () => {
     useEffect(() => {
         const fetchTopCoins = async () => {
             const cached = localStorage.getItem('nexus-assets-cache');
-            if (cached) setAssets(JSON.parse(cached));
+            const lastFetch = localStorage.getItem('nexus-assets-last-fetch');
 
+            if (cached && lastFetch && Date.now() - Number(lastFetch) < 5 * 60 * 1000) {
+                setAssets(JSON.parse(cached));
+                setIsLoading(false);
+                return;
+            }
+
+            setIsLoading(true);
             try {
                 const response = await fetch(
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1`,
-                    { headers: { 'x-cg-demo-api-key': API_KEY || '' } }
+                    { headers: { 'x-cg-demo-api-key': API_KEY || '', 'accept': 'application/json' } }
                 );
+
                 if (response.ok) {
                     const data = await response.json();
                     setAssets(data);
                     localStorage.setItem('nexus-assets-cache', JSON.stringify(data));
+                    localStorage.setItem('nexus-assets-last-fetch', Date.now().toString());
+                } else if (response.status === 429) {
+                    console.error("Limite de taxa atingido (Rate Limit). Usando cache.");
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) {
+                console.error("Erro na requisição:", err);
+            } finally {
+                setIsLoading(false);
+            }
         };
+
         fetchTopCoins();
-    }, [API_KEY]);
+    }, []);
 
     useEffect(() => {
         if (assets.length > 0) {
@@ -79,7 +95,7 @@ export const useConversion = () => {
             if (currentCoin?.id) {
                 const timer = setTimeout(() => {
                     fetchHistory(currentCoin.id);
-                }, 400); 
+                }, 400);
                 return () => clearTimeout(timer);
             }
         }
@@ -123,7 +139,7 @@ export const useConversion = () => {
     };
 
     return {
-        assets, fromAsset, setFromAsset, toAsset, setToAsset,
+        assets, isLoading, fromAsset, setFromAsset, toAsset, setToAsset,
         amount, setAmount, result, error, chartData,
         handleSwap, handleAssetChange
     };

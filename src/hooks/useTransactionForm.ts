@@ -22,7 +22,6 @@ export const useTransactionForm = (type: TransactionType) => {
         setObservation('');
     };
 
-    // Filtra transações apenas do tipo atual para mostrar na tabela da página
     const transactions = useMemo(() =>
         allTransactions.filter(t => t.type === type),
         [allTransactions, type]);
@@ -81,7 +80,6 @@ export const useTransactionForm = (type: TransactionType) => {
                 observation: observation || undefined
             };
 
-            // Salva os dados
             updateData(newTransaction, updatedUsers);
 
 
