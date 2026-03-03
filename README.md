@@ -43,7 +43,7 @@ Sistema de gestão financeira que permite visualizar usuários, gerenciar saldos
    ```
 
 4. **Configuração de API:**
-   Crie um arquivo .env na raiz e adicione sua chave:
+   Crie um arquivo .env na raiz e adicione sua chave
    ```bash
     VITE_COINGECKO_API_KEY=sua_chave_aqui
    ```
