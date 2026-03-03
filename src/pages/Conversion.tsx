@@ -14,6 +14,28 @@ const Conversion: React.FC = () => {
 
     return (
         <div className="max-w-1xl mx-auto">
+
+            {/* MENSAGEM DE COOLDOWN/RATE LIMIT */}
+            {error?.includes("429") || error?.includes("Limite") ? (
+                <div className="mb-6 flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-500/30 rounded-2xl animate-pulse">
+                    <Icon.AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                    <div className="flex flex-col gap-1 w-full">
+                        <span className="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider">
+                            Sistema em Cooldown
+                        </span>
+
+                        <p className="text-[11px] text-amber-700 dark:text-amber-400/80 leading-relaxed">
+                            Atingimos o limite de requisições da CoinGecko. Aguarde 1 minuto para atualizar os preços.
+                        </p>
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="mt-2 sm:mt-0 sm:ml-2 w-fit text-[10px] underline font-black uppercase tracking-widest text-amber-900 dark:text-amber-200 hover:text-amber-600 transition-colors py-1"
+                        >
+                            Tentar agora
+                        </button>
+                    </div>
+                </div>
+            ) : null}
             <header className="mb-10">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">Conversão de Ativos</h1>
                 <p className="text-gray-500 text-sm">Cotações em tempo real via CoinGecko.</p>
@@ -86,7 +108,7 @@ const Conversion: React.FC = () => {
                     </div>
                 </div>
 
-                {/* --- GRÁFICO INTEGRADO --- */}
+                {/* GRÁFICO INTEGRADO */}
                 <div className="mt-8 min-h-[200px] flex flex-col">
                     {chartData && chartData.length > 0 ? (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">

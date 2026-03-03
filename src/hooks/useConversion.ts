@@ -46,6 +46,9 @@ export const useConversion = () => {
                     }));
                 }
             }
+            else if (response.status === 429) {
+                setError("Limite de taxa atingido (Cooldown). O gráfico pode não atualizar.");
+            }
         } catch (e) {
             console.error("Erro ao buscar histórico:", e);
         }
@@ -55,7 +58,7 @@ export const useConversion = () => {
         const fetchTopCoins = async () => {
             const cached = localStorage.getItem('nexus-assets-cache');
             const lastFetch = localStorage.getItem('nexus-assets-last-fetch');
-            
+
             if (cached && lastFetch && Date.now() - Number(lastFetch) < 5 * 60 * 1000) {
                 const apiData = JSON.parse(cached);
                 setAssets([...FIAT_ASSETS, ...apiData]);
@@ -75,16 +78,26 @@ export const useConversion = () => {
                     setAssets([...FIAT_ASSETS, ...data]);
                     localStorage.setItem('nexus-assets-cache', JSON.stringify(data));
                     localStorage.setItem('nexus-assets-last-fetch', Date.now().toString());
+                    setError(null);
+                } else if (response.status === 429) {
+                    setError("API em Cooldown (429). Usando preços salvos em cache.");
+                    console.warn("Rate Limit atingido. Ativando fallback de cache.");
+                    if (cached) {
+                        setAssets([...FIAT_ASSETS, ...JSON.parse(cached)]);
+                    }
                 } else {
                     console.warn(`API Error ${response.status}. Tentando recuperar cache antigo...`);
                     if (cached) {
                         setAssets([...FIAT_ASSETS, ...JSON.parse(cached)]);
                     } else {
-                        setAssets(FIAT_ASSETS); 
+                        setAssets(FIAT_ASSETS);
                     }
                 }
             } catch (err) {
                 console.error("Erro de conexão/CORS:", err);
+
+                setError("API em Cooldown (429/CORS). Usando preços salvos em cache.");
+
                 if (cached) {
                     setAssets([...FIAT_ASSETS, ...JSON.parse(cached)]);
                 } else {
@@ -96,7 +109,7 @@ export const useConversion = () => {
         };
 
         fetchTopCoins();
-    }, [API_KEY]); 
+    }, [API_KEY]);
 
     useEffect(() => {
         if (assets.length > 0) {

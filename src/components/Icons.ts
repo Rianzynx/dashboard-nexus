@@ -25,7 +25,8 @@ export {
     Moon,
     Wallet,
     ChevronUp,
-    TrendingUp
+    TrendingUp,
+    AlertCircle
 } from 'lucide-react';
 
 

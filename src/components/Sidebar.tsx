@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className="hidden lg:flex absolute -right-4 top-72 w-6 h-6 rounded-full 
-                                items-center justify-center text-slate-400 dark:text-white/70 bg-white dark:bg-[#0a0a0b]
+                                items-center justify-center text-slate-400 dark:text-red-700 bg-white dark:bg-[#0a0a0b]
                                 border border-slate-200 dark:border-white/10 hover:scale-110 transition-all z-50 shadow-md group"
                 >
                     <div className="transition-transform duration-300 flex items-center justify-center"
