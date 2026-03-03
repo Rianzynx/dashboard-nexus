@@ -71,10 +71,10 @@ src/
 ## Decisões Técnicas
 
 ### 1. Custom Hooks vs Logic in Components
-Extraindo toda a lógica complexa (como cálculos de conversão e busca de API) para Hooks. Isso torna os componentes puramente visuais e facilita a manutenção.
+Extrai toda a lógica complexa (como cálculos de conversão e busca de API) para Hooks. Isso torna os componentes puramente visuais e facilita a manutenção.
 
 ### 2. Persistência de Preferências
-Utilizando useEffect sincronizado com o localStorage para que a escolha do tema do usuário seja mantida mesmo após fechar o navegador.
+Utilizei useEffect sincronizado com o localStorage para que a escolha do tema do usuário seja mantida mesmo após fechar o navegador.
 
 ### 3. Mocks em TS vs JSON
 Optei por utilizar arquivos `.ts` para os mocks em vez de `.json` para aproveitar o sistema de tipos do TypeScript, garantindo que os dados sigam as interfaces definidas.
