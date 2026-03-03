@@ -147,14 +147,13 @@ const Users: React.FC = () => {
 
 
             {/* TABELA CONTAINER */}
-            <div className="bg-slate-100 dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md">
+            <div className="bg-nexus-white dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md">
                 <div className="overflow-x-auto custom-scrollbar">
                     <table className="w-full text-left border-collapse min-w-[800px]">
                         <thead>
-                            <tr className="bg-stone-700/70 dark:bg-white/[0.02] text-white dark:text-slate-500 text-[11px] uppercase tracking-[0.1em] font-black">
-                                <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Usuário</th>
+                            <tr className="bg-slate-100/50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/[0.05] text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest font-bold transition-colors">                                <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Usuário</th>
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">E-mail</th>
-                                <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Status</th>
+                                <th className="px-6 py-3 text-center border-b border-slate-100 dark:border-white/5">Status</th>
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Cadastro</th>
                                 <th className="px-6 py-3 border-b border-slate-100 dark:border-white/5">Atividade</th>
                             </tr>

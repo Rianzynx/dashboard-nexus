@@ -26,8 +26,8 @@ const Home: React.FC = () => {
             {/* INDICADORES */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {indicators.map((item) => (
-                    <div key={item.id} className="relative bg-slate-200 dark:bg-nexus-offBlack/30 backdrop-blur-md 
-                py-4 px-4 rounded-2xl border border-slate-300 dark:border-white/10 
+                    <div key={item.id} className="relative bg-nexus-white dark:bg-nexus-offBlack/30 backdrop-blur-md 
+                py-4 px-4 rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg dark:shadow-black/30
                 hover:bg-slate-200 dark:hover:bg-white/[0.07] hover:border-slate-400 dark:hover:border-white/20 
                 transition-all duration-500 flex items-center gap-4 group">
 
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
                             <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-wider mb-0.5 truncate">
                                 {item.label}
                             </p>
-                            <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white tracking-tight truncate transition-colors">
+                            <h3 className="text-base md:text-lg font-black text-slate-700 dark:text-white tracking-tight truncate transition-colors">
                                 {item.value}
                             </h3>
                         </div>
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
                 {/* MOVIMENTAÇÕES */}
-                <section className="lg:col-span-2 bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-colors">
+                <section className="lg:col-span-2 bg-nexus-white dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 shadow-xl shadow-lg dark:shadow-black/30 transition-colors">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-lg text-slate-900 dark:text-white font-bold transition-colors">Últimas Movimentações</h2>
 
@@ -73,7 +73,7 @@ const Home: React.FC = () => {
 
                                 return (
                                     <AnimatedItem key={transaction.id} index={index}>
-                                        <div className="flex justify-between items-center p-4 bg-black/5 dark:bg-white/[0.03] rounded-xl  dark:border-black/5 hover:bg-slate-300 dark:hover:bg-white/[0.06] transition-all group">
+                                        <div className="flex justify-between items-center p-4 bg-black/5 dark:bg-white/[0.03] rounded-xl  dark:border-black/5 hover:bg-slate-300 dark:hover:bg-white/[0.06] shadow-lg transition-all group">
                                             <div className="flex items-center gap-4">
                                                 <div className="p-2 rounded-lg dark:bg-transparent shadow-sm dark:shadow-none">
                                                     <IconComponent className={`w-4 h-4 ${config.color}`} />
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
                 </section>
 
                 {/* ATIVOS */}
-                <section className="bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-colors">
+                <section className="bg-nexus-white dark:bg-nexus-offBlack/30 rounded-2xl p-6 border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-black/30 transition-colors">
                     <h2 className="text-lg text-slate-900 dark:text-white font-bold mb-6 transition-colors">Saldo dos ativos</h2>
 
                     <div className="space-y-4">

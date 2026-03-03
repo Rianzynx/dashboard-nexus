@@ -34,7 +34,7 @@ const WithdrawForm: React.FC = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-6">
-                    <form onSubmit={handleFormSubmit} className="bg-slate-200 dark:bg-nexus-offBlack/30 p-6 rounded-2xl border border-slate-300 dark:border-white/5 space-y-8 transition-colors">
+                    <form onSubmit={handleFormSubmit} className="bg-nexus-white dark:bg-nexus-offBlack/30 p-6 rounded-2xl border border-slate-300 dark:border-white/5 shadow-lg dark:shadow-black/30 space-y-8 transition-colors">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                             {/* Usuário de Origem com OptionSelect */}
@@ -129,7 +129,7 @@ const WithdrawForm: React.FC = () => {
 
                 {/* SIDEBAR DE SALDOS */}
                 <div className="space-y-6">
-                    <div className="bg-slate-200 dark:bg-nexus-offBlack/30 p-6 rounded-2xl border border-slate-300 dark:border-white/5 shadow-sm min-h-[340px] flex flex-col transition-colors">
+                    <div className="bg-nexus-white dark:bg-nexus-offBlack/30 p-6 rounded-2xl border border-slate-300 dark:border-white/5 shadow-lg dark:shadow-black/30 min-h-[340px] flex flex-col transition-colors">
                         <h2 className="text-slate-900 dark:text-white font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
                             <Icon.Users className="w-4 h-4 text-slate-500" />
                             Saldos Atualizados
@@ -187,7 +187,7 @@ const WithdrawForm: React.FC = () => {
             </div>
 
             {/* HISTÓRICO DE SAQUES */}
-            <div className="mt-10 bg-slate-200 dark:bg-nexus-offBlack/30 rounded-2xl border border-slate-300 dark:border-white/5 overflow-hidden transition-colors">
+             <div className="mt-10 bg-nexus-white dark:bg-nexus-offBlack/30 rounded-2xl border border-slate-300 dark:border-white/5 shadow-xl shadow-lg dark:shadow-black/60 overflow-hidden transition-colors">
                 <div className="p-6 border-b border-slate-300 dark:border-white/5">
                     <h3 className="text-slate-900 dark:text-white font-bold flex items-center gap-2 text-sm uppercase tracking-wider">
                         <Icon.History className="w-4 h-4 text-slate-500" />

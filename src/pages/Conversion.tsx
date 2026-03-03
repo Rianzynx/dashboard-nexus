@@ -19,7 +19,7 @@ const Conversion: React.FC = () => {
                 <p className="text-gray-500 text-sm">Cotações em tempo real via CoinGecko.</p>
             </header>
 
-            <div className="bg-gray-200 dark:bg-nexus-offBlack/30 p-8 rounded-3xl border border-gray-300 dark:border-white/5 backdrop-blur-xl transition-colors shadow-sm dark:shadow-none">
+            <div className="bg-nexus-white dark:bg-nexus-offBlack/30 p-8 rounded-3xl border border-gray-300 dark:border-white/5 backdrop-blur-xl transition-colors shadow-lg dark:shadow-black/30">
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
                     {/* ORIGEM */}
                     <div className="relative space-y-4">

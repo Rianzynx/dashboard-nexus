@@ -66,8 +66,8 @@ const Sidebar: React.FC = () => {
 
             {/* SIDEBAR CONTAINER */}
             <aside className={`fixed lg:relative top-0 left-0 z-50 h-screen
-                            bg-slate-200 dark:bg-[#0a0a0b]/30 backdrop-blur-2xl
-                            border-r border-slate-200 dark:border-white/5 
+                            bg-nexus-white dark:bg-[#0a0a0b]/30 backdrop-blur-2xl
+                            border-r border-slate-100 dark:border-white/5 shadow-xl shadow-slate-900/10 dark:shadow-red-900/10
                             flex flex-col flex-shrink-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                     ${isOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full lg:translate-x-0'}
                     ${!isOpen && (isCollapsed ? 'lg:w-[76px]' : 'lg:w-[260px]')}`}>
@@ -102,9 +102,9 @@ const Sidebar: React.FC = () => {
                             to={item.path}
                             onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
-                                `flex items-center transition-all rounded-xl  group relative ${isCollapsed ? 'justify-center h-12' : 'gap-4 px-4 h-12'} 
-                                ${isActive ? 'bg-stone-700/40 dark:bg-red-600/10 text-white dark:text-white  dark:border-red-600/20 shadow-md dark:shadow-[0_0_20px_rgba(220,38,38,0.15)]'
-                                    : 'text-slate-700 dark:text-white/55 hover:text-slate-900 dark:hover:text-slate-200 border-transparent hover:bg-black/10 dark:hover:bg-white/5'
+                                `flex items-center transition-all duration-300 rounded-xl group relative border ${isCollapsed ? 'justify-center h-12 w-12 mx-auto' : 'gap-4 px-4 h-12'} 
+                                    ${isActive ? 'bg-white dark:bg-red-500/10 text-slate-700 dark:text-white border-slate-200 dark:border-red-500/30 shadow-sm shadow-slate-200/50 dark:shadow-red-500/5'
+                                    : 'text-slate-500 dark:text-white/50 border-transparent hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-white'
                                 }`
                             }
                         >
@@ -136,12 +136,12 @@ const Sidebar: React.FC = () => {
                 <div className="px-4 py-2 border-t border-slate-100 dark:border-white/5">
                     <button
                         onClick={toggleTheme}
-                        className={`group flex items-center gap-3 w-full rounded-xl border border-slate-400 dark:border-white/10 bg-slate-300 dark:bg-white/[0.02] hover:bg-slate-500 dark:hover:bg-white/5 transition-all
+                        className={`group flex items-center gap-3 w-full rounded-xl border border-slate-400 dark:border-white/10 bg-slate-300 dark:bg-white/[0.02] hover:bg-nexus-offBlack/70 dark:hover:bg-white/5 transition-all
                         ${isCollapsed ? 'h-10 justify-center px-0' : 'h-11 px-4'}`}
                     >
                         <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
 
-                            <Icon.Moon className={`w-5 h-5 transition-all duration-500 absolute text-indigo-900 group-hover:text-indigo-600 
+                            <Icon.Moon className={`w-5 h-5 transition-all duration-500 absolute text-indigo-900 group-hover:text-white 
                                 ${isDarkMode ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`} />
 
 
@@ -149,7 +149,7 @@ const Sidebar: React.FC = () => {
                                 ${isDarkMode ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`} />
                         </div>
                         {!isCollapsed && (
-                            <span className="text-[10px] hover:text-slate-900  uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-white dark:text-slate-400 dark:group-hover:text-white">
+                            <span className="text-[10px] hover:text-slate-900  uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-white dark:text-slate-400 dark:group-hover:text-white transition-all duration-500">
                                 {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
                             </span>
                         )}

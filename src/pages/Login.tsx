@@ -37,7 +37,7 @@ const Login: React.FC = () => {
     }
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center bg-nexus-offBlack/20 dark:bg-stone-500/10 px-4 transition-colors duration-300">
+        <div className="relative min-h-screen flex items-center justify-center bg-nexus-offBlack/20 dark:bg-stone-800/40 px-4 transition-colors duration-300">
 
             {/* Botão de Alternar Tema ( */}
             <button
@@ -57,7 +57,7 @@ const Login: React.FC = () => {
             />
 
             {/* Container do formulário com suporte a Dark Mode */}
-            <div className="max-w-md w-full bg-slate-50/80 dark:bg-nexus-darkM/50 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-white/5 backdrop-blur-sm z-10 transition-colors">
+            <div className="max-w-md w-full bg-slate-50/80 dark:bg-nexus-darkM/70 shadow-xl shadow-slate/500 dark:shadow-black/30 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-white/5 backdrop-blur-sm z-10 transition-colors">
 
                 {/* Cabeçalho */}
                 <div className="text-center mb-1">
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
                             type="email"
                             required
                             value={email}
-                            className="w-full bg-white dark:bg-nexus-dark text-slate-900 dark:text-white px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-800 focus:ring-2 focus:ring-red-600/20 dark:focus:ring-slate-600/90 focus:border-red-600 dark:focus:border-transparent outline-none transition-all placeholder:text-slate-400"
+                            className="w-full bg-white dark:bg-nexus-dark text-slate-900 dark:text-white px-4 py-3 rounded-xl border border-stone-300 dark:border-stone-800 focus:ring-1 focus:ring-stone-600/30 dark:focus:ring-stone-600/90  dark:focus:border-transparent outline-none transition-all placeholder:text-slate-400"
                             placeholder="exemplo@nexus.com"
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -91,7 +91,7 @@ const Login: React.FC = () => {
                             type="password"
                             required
                             value={password}
-                            className="w-full bg-white dark:bg-nexus-dark text-slate-900 dark:text-white px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-800 focus:ring-2 focus:ring-red-600/20 dark:focus:ring-slate-600/90 focus:border-red-600 dark:focus:border-transparent outline-none transition-all placeholder:text-slate-400"
+                            className="w-full bg-white dark:bg-nexus-dark text-slate-900 dark:text-white px-4 py-3 rounded-xl border border-stone-300 dark:border-stone-800 focus:ring-1 focus:ring-stone-600/30 dark:focus:ring-stone-600/90  dark:focus:border-transparent outline-none transition-all placeholder:text-slate-400"
                             placeholder="••••••••"
                             onChange={(e) => setPassword(e.target.value)}
                         />
